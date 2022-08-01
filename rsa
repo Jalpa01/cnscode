@@ -1,0 +1,43 @@
+import math
+import random
+message=int(input("Enter the message to be encrypted:"))
+p=int(input("Enter p value:"))
+q=int(input("Enter q value:"))
+phi=(p-1)*(q-1)
+n=p*q
+def gcd(a,b):
+    while b:
+        a,b=b,a%b
+    return a
+l1=[]
+for r in range(3,phi,2):
+    while True:
+        if gcd(r,phi)==1:
+            l1.append(r)
+            break
+        else:
+            r+=1
+            
+print(l1)
+l1=list(set(l1))
+print(l1)
+e=random.choice(l1)
+print("e=",e)
+d=1
+while((e*d)%phi!=1):
+    d+=1
+print(d)   
+def encrypt(me):
+    en=me**e
+    c=en%n
+    print("Encrypted message is:",c)
+    return c
+    
+def decrypt(c):
+    de=c**d
+    orig=de%n 
+    print("decrypted message is:",orig)
+    return orig
+    
+c=encrypt(message)
+orig=decrypt(c)
