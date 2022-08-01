@@ -1,0 +1,24 @@
+import numpy as np
+pt=input("enter plain txt :")
+key=input("enter key :")
+pt=pt.lower()
+key=key.lower()
+key=np.array([ord(b)-97 for b in key])
+if len(key)==4:
+ size=2
+ keym=key.reshape(2,2)
+if len(key)==9:
+ size=3
+ keym=key.reshape(3,3)
+pt=[ord(a)-97 for a in pt]
+while (len(pt)%size!=0):
+ pt.append("x")
+pt=np.array(pt)
+ptm=np.array_split(pt,len(pt)/size)
+print("encryption is :")
+for a in ptm:
+ a = a.reshape(size,1)
+ encr = np.dot(keym,a)%26
+ for a in np.nditer(encr):
+ print(chr(a+97),end=" ")
+print(
